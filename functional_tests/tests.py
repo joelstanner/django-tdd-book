@@ -57,7 +57,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_list_table(
             '2: Use peacock feathers to make a fly')
 
-        # Now a new user, Francic, comes along to the site.
+        # Now a new user, Francis, comes along to the site.
 
         ## We use a new browser session to make sure that no information of
         ## Edith's is coming through from cookies, etc.
@@ -71,12 +71,12 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('make a fly', page_text)
 
         # Francis starts a new list by entering a new item. He is less
-        # intersting than Edith...
+        # interesting than Edith...
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
 
-        # Francis gets his own unique url
+        # Francis gets his own unique URL
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
