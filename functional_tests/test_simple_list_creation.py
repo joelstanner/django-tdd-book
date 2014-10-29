@@ -22,7 +22,7 @@ class NewVisitorTest(FunctionalTest):
         # She is invited to enter a to-do item straight away
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(inputbox.get_attribute('placeholder'),
-                         'Enter a to-do item')
+                         'So What-cha What-cha What-cha Want?')
 
         # She types "Buy peacock feathers" into a text box (Edith's hobby
         # is tying fly-fishing lures)
@@ -76,4 +76,3 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('Buy milk', page_text)
 
         # Satisfied, they both go back to sleep
-
