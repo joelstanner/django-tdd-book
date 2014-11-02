@@ -40,3 +40,4 @@ class LoginViewTest(TestCase):
         mock_authenticate.return_value = None
         self.client.post('/accounts/login', {'assertion': 'a'})
         self.assertNotIn(SESSION_KEY, self.client.session)
+
