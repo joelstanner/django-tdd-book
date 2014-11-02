@@ -25,7 +25,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 # This setting is changed by the deploy script
-DOMAIN = "localhosst"
+DOMAIN = "localhost"
 
 ALLOWED_HOSTS = [DOMAIN]
 
