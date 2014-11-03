@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from lists.models import Item, List
+
 from django.contrib.auth import get_user_model
 User = get_user_model()
-
-from lists.models import Item, List
 
 
 class ItemModelTest(TestCase):
@@ -25,6 +25,7 @@ class ItemModelTest(TestCase):
         with self.assertRaises(ValidationError):
             item.save()
             item.full_clean()
+
 
     def test_duplicate_items_are_invalid(self):
         list_ = List.objects.create()
@@ -65,4 +66,9 @@ class ListModelTest(TestCase):
 
     def test_list_owner_is_optional(self):
         List.objects.create() # should not raise
-        
+
+    def test_list_name_is_first_item_text(self):
+        list_ = List.objects.create()
+        Item.objects.create(list=list_, text='first item')
+        Item.objects.create(list=list_, text='second item')
+        self.assertEqual(list_.name, 'first item')
