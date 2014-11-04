@@ -7,7 +7,7 @@ from lists.models import List
 
 
 def home_page(request):
-    return render(request, 'home.html', {"form": ItemForm()})
+    return render(request, 'home.html', {'form': ItemForm()})
 
 def new_list(request):
     form = ItemForm(data=request.POST)

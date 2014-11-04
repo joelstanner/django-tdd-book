@@ -1,3 +1,5 @@
+from unittest.mock import Mock, patch
+
 from django.test import TestCase
 from django.http import HttpRequest
 from django.utils.html import escape
@@ -7,7 +9,7 @@ User = get_user_model()
 
 from lists.models import Item, List
 from lists.forms import (ItemForm, ExistingListItemForm,
-                         DUPLICATE_ITEM_ERROR, EMPTY_LIST_ERROR)
+                         DUPLICATE_ITEM_ERROR, EMPTY_ITEM_ERROR)
 from lists.views import new_list
 
 
@@ -51,19 +53,30 @@ class NewListTest(TestCase):
 
     def test_validation_errors_are_shown_on_home_page(self):
         response = self.client.post('/lists/new', data={'text': ''})
-        self.assertContains(response, escape(EMPTY_LIST_ERROR))
+        self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.client.post('/lists/new', data={'text': ''})
         self.assertIsInstance(response.context['form'], ItemForm)
 
-    def test_list_owner_is_saved_if_user_is_authenticated(self):
+    @patch('lists.views.List')
+    def test_list_owner_is_saved_if_user_is_authenticated(self, mockList):
+        mock_list = List.objects.create()
+        mock_list.save = Mock()
+        mockList.return_value = mock_list
         request = HttpRequest()
-        request.user = User.objects.create(email='a@b.com')
+        request.user = Mock()
+        request.user.is_authenticated.return_value = True
         request.POST['text'] = 'new list item'
+
+        def check_owner_assigned():
+            self.assertEqual(mock_list.owner, request.user)
+        mock_list.save.side_effect = check_owner_assigned
+
         new_list(request)
-        list_ = List.objects.first()
-        self.assertEqual(list_.owner, request.user)
+
+        mock_list.save.assert_called_once_with()
+
 
 class ListViewTest(TestCase):
 
@@ -146,14 +159,14 @@ class ListViewTest(TestCase):
 
     def test_for_invalid_input_shows_error_on_page(self):
         response = self.post_invalid_input()
-        self.assertContains(response, escape(EMPTY_LIST_ERROR))
+        self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
     def test_duplicate_item_validation_errors_end_up_on_lists_page(self):
         list1 = List.objects.create()
         item1 = Item.objects.create(list=list1, text='textey')
         response = self.client.post(
             '/lists/%d/' % (list1.id,),
-            data = {'text' : 'textey'}
+            data={'text': 'textey'}
         )
 
         expected_error = escape(DUPLICATE_ITEM_ERROR)
