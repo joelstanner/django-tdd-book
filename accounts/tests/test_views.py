@@ -24,7 +24,7 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.content.decode(), 'OK')
 
     @patch('accounts.views.authenticate')
-    def test_gets_logged_in_sssion_if_authenticate_returns_a_user(
+    def test_gets_logged_in_session_if_authenticate_returns_a_user(
         self, mock_authenticate
     ):
         user = User.objects.create(email='a@b.com')
