@@ -40,7 +40,6 @@ class NewListViewIntegratedTest(TestCase):
         self.assertEqual(List.objects.count(), 0)
         self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
-
     def test_saves_list_owner_if_user_logged_in(self):
         request = HttpRequest()
         request.user = User.objects.create(email='a@b.com')
