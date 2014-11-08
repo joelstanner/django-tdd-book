@@ -4,5 +4,3 @@ __pycache__
 .pylintrc
 notes.txt
 notes.md
-lists/tests/test_views.py.orig
-superlists/static/list.js.old
