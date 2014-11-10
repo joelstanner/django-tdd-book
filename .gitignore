@@ -4,3 +4,4 @@ __pycache__
 .pylintrc
 notes.txt
 notes.md
+functional_tests/screendumps
