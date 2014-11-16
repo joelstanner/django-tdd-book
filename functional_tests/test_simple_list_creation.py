@@ -46,7 +46,7 @@ class NewVisitorTest(FunctionalTest):
         # enters "Use peacock feathers to make a fly" (Edith is very methodical)
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Use peacock feathers to make a fly')
-        inputbox.send_keys(Keys.ENTER)
+        inputbox.send_keys('\n')
 
         # The page updates again, and now shows both items on her list
         self.check_for_row_in_list_table('1: Buy peacock feathers')
@@ -70,7 +70,7 @@ class NewVisitorTest(FunctionalTest):
         # interesting than Edith...
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy milk')
-        inputbox.send_keys(Keys.ENTER)
+        inputbox.send_keys('\n')
 
         # Francis gets his own unique URL
         francis_list_url = self.browser.current_url
