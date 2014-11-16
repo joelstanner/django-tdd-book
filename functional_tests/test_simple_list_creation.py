@@ -36,7 +36,7 @@ class NewVisitorTest(FunctionalTest):
         inputbox.send_keys('\n')
         sleep(5)
         edith_list_url = self.browser.current_url
-        logging.debug("The page is {this}".format(this=browser.page_source))
+        #logging.debug("The page is {this}".format(this=browser.page_source))
         self.wait_for(
             lambda: self.assertRegex(edith_list_url, '/lists/.+')
         )
