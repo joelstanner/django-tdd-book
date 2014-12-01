@@ -26,6 +26,12 @@ class HomePage(object):
             'My Lists'
     ))
 
+    def logout(self):
+        self.test.browser.find_element_by_id('id_logout').click()
+        self.test.assertEqual(
+            self.test.browser.find_elements_by_link_text('My lists'), [])
+        return self
+
 
 class ListPage(object):
 
@@ -39,7 +45,8 @@ class ListPage(object):
     def wait_for_new_item_in_list(self, item_text, position):
         expected_row = '{}: {}'.format(position, item_text)
         self.test.wait_for(lambda: self.test.assertIn(
-            expect
+            expected_row,
+            [row.text for row in self.get_list_table_rows()]
         ))
 
     def get_share_box(self):
