@@ -19,7 +19,6 @@ SCREEN_DUMP_LOCATION = os.path.join(
 )
 
 
-
 class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod
