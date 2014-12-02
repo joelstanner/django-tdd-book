@@ -12,8 +12,9 @@
   </table>
 {% endblock %}
 
-{% block extra_content %}
-  <form name="share_this_list">
+{% block sharing %}
+  <form method="POST" name="share_this_list"
+        action="{% url 'share_list' list.id %}">
     <label for="email">Share This List</label>
     <input type="text" name="email" placeholder="your-friend@example.com">
   </form>

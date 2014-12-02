@@ -47,5 +47,5 @@ class ExistingListItemForm(ItemForm):
             self._update_errors(e)
 
 
-class ShareLists(forms.models.ModelForm):
+class ShareList(forms.models.ModelForm):
     pass
