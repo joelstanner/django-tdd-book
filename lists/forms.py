@@ -46,3 +46,6 @@ class ExistingListItemForm(ItemForm):
             e.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
             self._update_errors(e)
 
+
+class ShareLists(forms.models.ModelForm):
+    pass

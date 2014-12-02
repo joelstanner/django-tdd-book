@@ -11,3 +11,10 @@
     {% endfor %}
   </table>
 {% endblock %}
+
+{% block extra_content %}
+  <form name="share_this_list">
+    <label for="email">Share This List</label>
+    <input type="text" name="email" placeholder="your-friend@example.com">
+  </form>
+{% endblock %}
