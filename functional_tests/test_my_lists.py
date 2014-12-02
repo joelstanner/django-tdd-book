@@ -1,5 +1,5 @@
 from .base import FunctionalTest
-from .home_and_list_pages import HomePage
+from .home_and_list_pages import HomePage, ListPage
 
 from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, get_user_model
 User = get_user_model()
@@ -14,7 +14,7 @@ class MyListsTests(FunctionalTest):
 
         # She goes to the home page and starts a list
         list_page = HomePage(self).start_new_list('Reticulate splines')
-        self.get_item_input_box().send_keys('Immanetize eschaton\n')
+        ListPage(self).add_new_item('Immanetize eschaton')
         first_list_url = self.browser.current_url
 
         # She notices a "My Lists" link, for the first time
