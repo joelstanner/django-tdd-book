@@ -216,16 +216,15 @@ class ShareListTest(TestCase):
         list_ = List.objects.create()
         response = self.client.post(
             '/lists/{}/share'.format(list_.id),
-            data={'text': 'some@email.com'}
+            data={'email': 'some@email.com'}
         )
-        self.assertRedirects(response, '/lists/{}/'.format(list_.id,))
+        self.assertRedirects(response, list_.get_absolute_url())
 
     def test_email_is_added_to_shared_list(self):
-        User.objects.create(email='a@b.com')
+        user = User.objects.create(email='a@b.com')
         list_ = List.objects.create()
-        response = self.client.post(
+        self.client.post(
             '/lists/{}/share'.format(list_.id),
-            data={'text': 'some@email.com'}
+            data={'email': 'a@b.com'}
         )
-        share_list = list_.shared_with.all()
-        self.assertIn('some@email.com', share_list)
+        self.assertIn(user, list_.shared_with.all())

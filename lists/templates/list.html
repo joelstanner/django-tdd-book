@@ -10,12 +10,30 @@
       <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
     {% endfor %}
   </table>
+
+  {% if list.owner %}
+    <p>List owner: <span id="id_list_owner">{{ list.owner.email }}</span><p>
+  {% endif %}
+
 {% endblock %}
 
 {% block sharing %}
-  <form method="POST" name="share_this_list"
-        action="{% url 'share_list' list.id %}">
-    <label for="email">Share This List</label>
-    <input type="text" name="email" placeholder="your-friend@example.com">
-  </form>
+  <div class="col-md-4 col-md-offset-1">
+    <form class="form-group" method="POST" name="share_this_list"
+          action="{% url 'share_list' list.id %}">
+      {% csrf_token %}
+      <label for="email">Share This List</label>
+      <input class="form-control" type="email"
+             name="email" placeholder="your-friend@example.com" />
+    </form>
+  </div>
+  <div class="col-md-4 form-group">
+    <h3>Shared with:</h3>
+    <ul class="list-share">
+      {% for sharee in list.shared_with.all %}
+        <li>{{ sharee.email }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
 {% endblock %}
