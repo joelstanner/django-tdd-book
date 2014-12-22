@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'accounts',
     'lists',
     'functional_tests',
-    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
