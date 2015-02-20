@@ -22,7 +22,7 @@ eg, on CentOS:
 
 ## Folder structure:
 Assume we have a user account at /home/username 
-
+```
 /home/username  
 └── sites  
     └── SITENAME  
@@ -30,3 +30,4 @@ Assume we have a user account at /home/username
          ├── source  
          ├── static  
          └── virtualenv  
+```
